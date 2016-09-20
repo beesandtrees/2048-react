@@ -79,21 +79,43 @@ Board.size = 4;
 
 Board.prototype.moveLeft = function () {
   var hasChanged = false;
+
+  // loop through the current rows and find tiles that have a value
   for (var row = 0; row < Board.size; ++row) {
+
+    // return tiles that do not have a value of 0
+    // can create an array with a length of 0
     var currentRow = this.cells[row].filter(function (tile) {
       return tile.value != 0;
     });
+
     var resultRow = [];
+
+    // loop through the individual tiles in the "cells"
     for (var target = 0; target < Board.size; ++target) {
+
+      // if the currentRow has tiles in it - pop the tile into the variable
+      // otherwise add a tile
       var targetTile = currentRow.length ? currentRow.shift() : this.addTile();
-      if (currentRow.length > 0 && currentRow[0].value == targetTile.value) {
-        var tile1 = targetTile;
-        targetTile = this.addTile(targetTile.value);
-        tile1.mergedInto = targetTile;
-        var tile2 = currentRow.shift();
-        tile2.mergedInto = targetTile;
-        targetTile.value += tile2.value;
-      }
+
+      // if it's not a new tile with a value of 0
+      // and there are tiles in the array
+      if(targetTile.value !== 0 && currentRow.length > 0) {
+
+        for (var currentTile = 0;  currentTile < currentRow.length; currentTile++) {
+          console.log('currentTile', currentRow[currentTile].value);
+        }
+
+        // if the first items value matches the popped tile's value
+        // if (currentRow[0].value == targetTile.value) {
+        //   var tile1 = targetTile;
+        //   targetTile = this.addTile(targetTile.value);
+        //   tile1.mergedInto = targetTile;
+        //   var tile2 = currentRow.shift();
+        //   tile2.mergedInto = targetTile;
+        //   targetTile.value += tile2.value;
+        // } // end if match
+      } // end if !== 0
       resultRow[target] = targetTile;
       this.won |= targetTile.value == 2048;
       hasChanged |= targetTile.value != this.cells[row][target].value;

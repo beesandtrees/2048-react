@@ -98,28 +98,30 @@ Board.prototype.moveLeft = function () {
       // otherwise add a tile
       var targetTile = currentRow.length ? currentRow.shift() : this.addTile();
 
+      // refactor - needs to continue to merge WHILE the values are the same
+      /////////// LOTS OF CHANGES RECOGNIZE ME ???????///////
+
       // if it's not a new tile with a value of 0
       // and there are tiles in the array
       if(targetTile.value !== 0 && currentRow.length > 0) {
-
-        for (var currentTile = 0;  currentTile < currentRow.length; currentTile++) {
-          console.log('currentTile', currentRow[currentTile].value);
-        }
-
         // if the first items value matches the popped tile's value
-        // if (currentRow[0].value == targetTile.value) {
-        //   var tile1 = targetTile;
-        //   targetTile = this.addTile(targetTile.value);
-        //   tile1.mergedInto = targetTile;
-        //   var tile2 = currentRow.shift();
-        //   tile2.mergedInto = targetTile;
-        //   targetTile.value += tile2.value;
-        // } // end if match
+        if (targetTile.value == currentRow[0].value) {
+          var tile1 = targetTile;
+          targetTile = this.addTile(targetTile.value);
+          tile1.mergedInto = targetTile;
+          var tile2 = currentRow.shift();
+          tile2.mergedInto = targetTile;
+          targetTile.value += tile2.value;
+        } // end if match
       } // end if !== 0
+
+
       resultRow[target] = targetTile;
       this.won |= targetTile.value == 2048;
       hasChanged |= targetTile.value != this.cells[row][target].value;
-    }
+
+  } // end FOR loop
+
     this.cells[row] = resultRow;
   }
   return hasChanged;

@@ -98,34 +98,26 @@ Board.prototype.moveLeft = function() {
             // otherwise add a tile
             var targetTile = currentRow.length ? currentRow.shift() : this.addTile();
 
-            // refactor - needs to continue to merge WHILE the values are the same
-            // how can I make this a while loop?
-            // --------- TODO --------- //
-            // merge cells while the tiles match
-            // create a variable that notes the value of the first tile
-            // as long as the next tile matches this first value keep merging
-            // when the value doesn't match anymore reassign the variable to the new value
-
             // if it's not a new tile with a value of 0
             // and there are tiles in the array
             if (currentRow.length > 0) {
-
                 // if the first items value matches the popped tile's value
-                if (targetTile.value == currentRow[0].value) {
+                while (currentRow.length > 0 && targetTile.value == currentRow[0].value) {
                     var tile1 = targetTile;
                     targetTile = this.addTile(targetTile.value);
                     tile1.mergedInto = targetTile;
                     var tile2 = currentRow.shift();
                     tile2.mergedInto = targetTile;
-                    targetTile.value += tile2.value;
                 } // end if match
+                targetTile.value = targetTile.value*2;
             } // end if !== 0
 
+            // queue for merge
             resultRow[target] = targetTile;
             this.won |= targetTile.value == 2048;
             hasChanged |= targetTile.value != this.cells[row][target].value;
         } // end FOR loop
-        
+
 
         this.cells[row] = resultRow;
     }
@@ -171,6 +163,7 @@ Board.prototype.move = function(direction) {
         this.cells = rotateLeft(this.cells);
     }
     var hasChanged = this.moveLeft();
+
     for (var i = direction; i < 4; ++i) {
         this.cells = rotateLeft(this.cells);
     }

@@ -82,42 +82,37 @@ Board.prototype.moveLeft = function() {
 
     // loop through the current rows and find tiles that have a value
     for (var row = 0; row < Board.size; ++row) {
-
-        // return tiles that do not have a value of 0
-        // can create an array with a length of 0
         var currentRow = this.cells[row].filter(function(tile) {
             return tile.value != 0;
         });
-
         var resultRow = [];
 
-        // loop through the individual tiles in the "cells"
-        for (var target = 0; target < Board.size; ++target) {
+        var firstTile = currentRow.length ? currentRow[0] : this.addTile();
 
-            // if the currentRow has tiles in it - pop the tile into the variable
-            // otherwise add a tile
+        for (var column = 0; column < Board.size; ++column) {
+
             var targetTile = currentRow.length ? currentRow.shift() : this.addTile();
+            if(firstTile.value === 0) {
+                firstTile = targetTile;
+            }
 
-            // if it's not a new tile with a value of 0
-            // and there are tiles in the array
-            if (currentRow.length > 0) {
-                // if the first items value matches the popped tile's value
-                while (currentRow.length > 0 && targetTile.value == currentRow[0].value) {
-                    var tile1 = targetTile;
-                    targetTile = this.addTile(targetTile.value);
-                    tile1.mergedInto = targetTile;
-                    var tile2 = currentRow.shift();
-                    tile2.mergedInto = targetTile;
-                } // end if match
-                targetTile.value = targetTile.value*2;
-            } // end if !== 0
+            if (currentRow.length > 0 && targetTile.value === currentRow[0].value) {
+                var tile1 = targetTile;
+                targetTile = this.addTile(targetTile.value);
+                tile1.mergedInto = targetTile;
+                var tile2 = currentRow.shift();
+                tile2.mergedInto = targetTile;
+                targetTile.value += tile2.value;
+                console.log('match');
+            } else {
+                firstTile = targetTile;
+                console.log(firstTile.value, targetTile.value)
+            }
 
-            // queue for merge
-            resultRow[target] = targetTile;
+            resultRow[column] = targetTile;
             this.won |= targetTile.value == 2048;
-            hasChanged |= targetTile.value != this.cells[row][target].value;
-        } // end FOR loop
-
+            hasChanged |= targetTile.value != this.cells[row][column].value;
+        }
 
         this.cells[row] = resultRow;
     }
@@ -162,6 +157,7 @@ Board.prototype.move = function(direction) {
     for (var i = 0; i < direction; ++i) {
         this.cells = rotateLeft(this.cells);
     }
+
     var hasChanged = this.moveLeft();
 
     for (var i = direction; i < 4; ++i) {

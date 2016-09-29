@@ -14,6 +14,7 @@ class BoardView extends React.Component {
       event.preventDefault();
       var direction = event.keyCode - 37;
       this.setState({board: this.state.board.move(direction)});
+      console.log(this.state.board);
     }
   }
   handleTouchStart(event) {

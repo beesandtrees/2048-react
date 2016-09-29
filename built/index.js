@@ -94,7 +94,12 @@ var BoardView = function (_React$Component) {
         );
       });
       var tiles = this.state.board.tiles.filter(function (tile) {
-        return tile.value != 0;
+        //   if(tile.value > 0 && tile.oldRow === -1) {
+        //       return false;
+        //   }
+          if(tile.value != 0) {
+              return true;
+          }
       }).map(function (tile) {
         return React.createElement(TileView, { tile: tile, key: tile.id });
       });

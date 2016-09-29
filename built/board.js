@@ -113,45 +113,12 @@ Board.prototype.moveLeft = function() {
 
                 if (tile2.value !== nextVal) {
                   targetTile.value = targetTile.value * 2;
-                  console.log(targetTile);
-                  // this.score += targetTile.value * 10;
+                  break;
                 }
 
             } // end of while
-
-/* CURRENT ISSUES
-
-4 2 2 combines to 8 and bumps out the 4
-
-2 2 2 combines to 4 and bumps out one of the 2s
-
-16 16 16 turns to 32
-
-8 8 4 4 turns to 16 and bumps the 8’s out
-
-so obviously one of the tiles is getting a wrong assignment
-it should get deleted, but it's instead getting added
-but not actually IN the grid
-so it still exits, just in the wrong place
-and THEN it gets delted on the next turn
-
-also large numbers next to a set of numbers that can combine into
-that number are continuing to combine
-4 4 8 8 see above
-
-or 4 4 8 == 16 - also wrong
-
-16 8 8  ==  32  boots a 16 out
-
-8 4 4 == 16  boots out an 8
-
-so somehow it's not actually breaking
-and moving out of the loop soon enough on those
-
-*/
-
             // queue for merge
-            if(resultRow.length <= Board.size) resultRow[target] = targetTile;
+            resultRow[target] = targetTile;
             this.won |= targetTile.value == 2048;
             hasChanged |= targetTile.value != this.cells[row][target].value;
         } // end FOR loop
@@ -196,7 +163,6 @@ Board.prototype.addRandomTile = function() {
 
 Board.prototype.move = function(direction) {
     // 0 -> left, 1 -> up, 2 -> right, 3 -> down
-    this.clearOldTiles();
     for (var i = 0; i < direction; ++i) {
         this.cells = rotateLeft(this.cells);
     }
@@ -205,6 +171,9 @@ Board.prototype.move = function(direction) {
     for (var i = direction; i < 4; ++i) {
         this.cells = rotateLeft(this.cells);
     }
+
+    this.clearOldTiles();
+
     if (hasChanged) {
         this.addRandomTile();
     }

@@ -121,15 +121,13 @@ Board.prototype.moveLeft = function() {
 
 /* CURRENT ISSUES
 
-2 2 4 combines to 8 and bumps out the 4
+4 2 2 combines to 8 and bumps out the 4
 
 2 2 2 combines to 4 and bumps out one of the 2s
 
 16 16 16 turns to 32
 
-4 4 8 8 turns to 16 and bumps the 8’s out
-
-4 4 8 turns to 16 and boots out an 8
+8 8 4 4 turns to 16 and bumps the 8’s out
 
 so obviously one of the tiles is getting a wrong assignment
 it should get deleted, but it's instead getting added
@@ -142,6 +140,10 @@ that number are continuing to combine
 4 4 8 8 see above
 
 or 4 4 8 == 16 - also wrong
+
+16 8 8  ==  32  boots a 16 out
+
+8 4 4 == 16  boots out an 8
 
 so somehow it's not actually breaking
 and moving out of the loop soon enough on those

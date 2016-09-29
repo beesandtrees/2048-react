@@ -100,20 +100,56 @@ Board.prototype.moveLeft = function() {
 
             // if it's not a new tile with a value of 0
             // and there are tiles in the array
-            if (currentRow.length > 0) {
-                // if the first items value matches the popped tile's value
-                while (currentRow.length > 0 && targetTile.value == currentRow[0].value) {
-                    var tile1 = targetTile;
-                    targetTile = this.addTile(targetTile.value);
-                    tile1.mergedInto = targetTile;
-                    var tile2 = currentRow.shift();
-                    tile2.mergedInto = targetTile;
-                } // end if match
-                targetTile.value = targetTile.value*2;
-            } // end if !== 0
+            // if the first items value matches the popped tile's value
+            while (currentRow.length > 0 && targetTile.value === currentRow[0].value) {
+                var tile1 = targetTile;
+                targetTile = this.addTile(targetTile.value);
+                tile1.mergedInto = targetTile;
+
+                var tile2 = currentRow.shift();
+                tile2.mergedInto = targetTile;
+
+                var nextVal = currentRow.length ? currentRow[0].value : -1;
+
+                if (tile2.value !== nextVal) {
+                  targetTile.value = targetTile.value * 2;
+                  console.log(targetTile);
+                  // this.score += targetTile.value * 10;
+                }
+
+            } // end of while
+
+/* CURRENT ISSUES
+
+2 2 4 combines to 8 and bumps out the 4
+
+2 2 2 combines to 4 and bumps out one of the 2s
+
+16 16 16 turns to 32
+
+4 4 8 8 turns to 16 and bumps the 8’s out
+
+4 4 8 turns to 16 and boots out an 8
+
+so obviously one of the tiles is getting a wrong assignment
+it should get deleted, but it's instead getting added
+but not actually IN the grid
+so it still exits, just in the wrong place
+and THEN it gets delted on the next turn
+
+also large numbers next to a set of numbers that can combine into
+that number are continuing to combine
+4 4 8 8 see above
+
+or 4 4 8 == 16 - also wrong
+
+so somehow it's not actually breaking
+and moving out of the loop soon enough on those
+
+*/
 
             // queue for merge
-            resultRow[target] = targetTile;
+            if(resultRow.length <= Board.size) resultRow[target] = targetTile;
             this.won |= targetTile.value == 2048;
             hasChanged |= targetTile.value != this.cells[row][target].value;
         } // end FOR loop

@@ -53,57 +53,57 @@ body {
   vertical-align: middle;
   border-radius: 7px;
   font-family: "Clear Sans";
-  color: #766;
+  color: #fff;
   background-color: #dcb; }
 
 .tile0 {
   background-color: #dcb; }
 
 .tile2 {
-  background-color: #eee; }
+  background-color: Gold; }
 
 .tile4 {
-  background-color: #eec; }
+  background-color: orange; }
 
 .tile8 {
   color: #ffe;
-  background-color: #fb8; }
+  background-color: orangered; }
 
 .tile16 {
   color: #ffe;
-  background-color: #f96; }
+  background-color: Crimson; }
 
 .tile32 {
   color: #ffe;
-  background-color: #f75; }
+  background-color: MediumVioletRed; }
 
 .tile64 {
   color: #ffe;
-  background-color: #f53; }
+  background-color: Purple; }
 
 .tile128 {
   color: #ffe;
-  background-color: #ec7;
+  background-color: Indigo;
   font-size: 45px; }
 
 .tile256 {
   color: #ffe;
-  background-color: #ec6;
+  background-color: MediumBlue;
   font-size: 45px; }
 
 .tile512 {
   color: #ffe;
-  background-color: #ec5;
+  background-color: Teal;
   font-size: 45px; }
 
 .tile1024 {
   color: #fff;
-  background-color: #ec3;
+  background-color: MediumSeaGreen;
   font-size: 35px; }
 
 .tile2048 {
   color: #fff;
-  background-color: #ec2;
+  background-color: LimeGreen;
   font-size: 35px; }
 
 .tile {

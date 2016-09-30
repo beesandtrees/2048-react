@@ -29,7 +29,7 @@ body {
     width: 440px;
     height: 440px;
     padding: 5px;
-    background-color: #baa;
+    background-color: #fff;
     border-radius: 7px;
     outline: none;
     position: relative;
@@ -51,60 +51,46 @@ body {
     font-weight: bold;
     text-align: center;
     vertical-align: middle;
-    border-radius: 7px;
+    border-radius: 50%;
     font-family: "Clear Sans";
     color: #fff;
-    background-color: #dcb;
+    background-color: #E6E6E6;
 }
 .tile0 {
-    background-color: #dcb;
+    background-color: #E6E6E6;
 }
 .tile2 {
-    background-color: Gold;
+    background-color: #FFDE00;
 }
 .tile4 {
-    background-color: orange;
+    background-color: #FF9F00;
 }
 .tile8 {
-    color: #ffe;
-    background-color: orangered;
+    background-color: #FD6363;
 }
 .tile16 {
-    color: #ffe;
-    background-color: Crimson;
+    background-color: #E00BAE;
 }
 .tile32 {
-    color: #ffe;
-    background-color: MediumVioletRed;
+    background-color: #9127ED;
 }
 .tile64 {
-    color: #ffe;
-    background-color: Purple;
+    background-color: #4E44FF;
 }
 .tile128 {
-    color: #ffe;
-    background-color: Indigo;
-    font-size: 45px;
+    background-color: #00A5FF;
 }
 .tile256 {
-    color: #ffe;
-    background-color: MediumBlue;
-    font-size: 45px;
+    background-color: #21D6D9;
 }
 .tile512 {
-    color: #ffe;
-    background-color: Teal;
-    font-size: 45px;
+    background-color: #77DC08;
 }
 .tile1024 {
-    color: #fff;
-    background-color: MediumSeaGreen;
-    font-size: 35px;
+    background-color: #C6FF48;
 }
 .tile2048 {
-    color: #fff;
-    background-color: LimeGreen;
-    font-size: 35px;
+    background-color: #3D3741;
 }
 .tile {
     position: absolute;

@@ -94,9 +94,11 @@ var BoardView = function (_React$Component) {
         );
       });
       var tiles = this.state.board.tiles.filter(function (tile) {
-        //   if(tile.value > 0 && tile.oldRow === -1) {
-        //       return false;
-        //   }
+          if(tile.mergedInto) {
+            if(tile.value > 0 && (tile.mergedInto.row === -1 || tile.row === -1)) {
+              return false;
+            }
+          }
           if(tile.value != 0) {
               return true;
           }
@@ -192,7 +194,7 @@ var TileView = function (_React$Component3) {
       return React.createElement(
         'span',
         { className: classes },
-        tile.value
+        ''
       );
     }
   }]);
